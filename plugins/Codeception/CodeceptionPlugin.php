@@ -101,7 +101,10 @@ class CodeceptionPlugin implements \PHPCI\Plugin
     private function runSuite($codecept, $suite, CodeceptionOptions $options)
     {
         $commandBuilder = new CommandBuilder($codecept, $suite, $this->build->getBuildPath(), $options);
-        $this->builder->log($commandBuilder->buildCommand());
+        $cmd = sprintf(IS_WIN ? 'cd /d "%s" && ' : 'cd "%s" && ', $this->build->getBuildPath());
+        $cmd .= $commandBuilder->buildCommand();
+
+        $this->builder->log($cmd);
 
         return true;
     }
