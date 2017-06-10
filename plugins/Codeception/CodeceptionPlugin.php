@@ -85,7 +85,7 @@ class CodeceptionPlugin implements \PHPCI\Plugin
             }
 
             foreach($suiteConfigs as $suiteConfig) {
-                if(!is_array($suiteConfigs)){
+                if(!is_array($suiteConfig)){
                     $suiteConfigs = array($suiteConfig);
                 }
 
