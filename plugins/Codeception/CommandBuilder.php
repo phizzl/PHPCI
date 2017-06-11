@@ -13,6 +13,11 @@ class CommandBuilder
     /**
      * @var string
      */
+    private $configFile;
+
+    /**
+     * @var string
+     */
     private $suite;
 
     /**
@@ -28,13 +33,15 @@ class CommandBuilder
     /**
      * CommandBuilder constructor.
      * @param string $codecept
+     * @param string $configFile
      * @param string $suite
      * @param string $buildPath
      * @param CodeceptionOptions $options
      */
-    public function __construct($codecept, $suite, $buildPath, CodeceptionOptions $options)
+    public function __construct($codecept, $configFile, $suite, $buildPath, CodeceptionOptions $options)
     {
         $this->codecept = $codecept;
+        $this->configFile = $configFile;
         $this->suite = $suite;
         $this->buildPath = $buildPath;
         $this->options = $options;
@@ -45,10 +52,9 @@ class CommandBuilder
      */
     public function buildCommand()
     {
-        $config = $this->options->getOption('config', 'codeception.yml');
         $env = $this->options->getOption('env', '');
         return "{$this->codecept} run {$this->suite} " .
-            "-c \"{$config}\" " . ($env !== '' ? "--env {$env} " : "") .
-            "--json report_{$this->suite}.json";
+            "-c \"{$this->configFile}\" " . ($env !== '' ? "--env {$env} " : "") .
+            "--json report.json --report";
     }
 }
