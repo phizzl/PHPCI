@@ -74,6 +74,7 @@ class ReportParserJson
         $parsed = array();
         foreach(explode('{', $contents) as $part){
             if(!$partParsed = json_decode('{' . $part, true)){
+                var_dump($contents);
                 throw new Exception("File does not contain JSON");
             }
             $parsed[] = $partParsed;
