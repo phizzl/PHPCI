@@ -48,7 +48,7 @@ class CommandBuilder
         $config = $this->options->getOption('config', 'codeception.yml');
         $env = $this->options->getOption('env', '');
         return "{$this->codecept} run {$this->suite} " .
-            "-c \"{$config} " . ($env !== '' ? "--env {$env} " : "") .
-            "--json";
+            "-c \"{$config}\" " . ($env !== '' ? "--env {$env} " : "") .
+            "--json report_{$this->suite}.json";
     }
 }

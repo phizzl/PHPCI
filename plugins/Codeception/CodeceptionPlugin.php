@@ -34,28 +34,6 @@ class CodeceptionPlugin implements \PHPCI\Plugin
     }
 
     /**
-     * @param string $buildPath
-     * @return string
-     * @throws Exception
-     */
-    public static function findConfigFile($buildPath)
-    {
-        $file = '';
-        $searchFiles = array($buildPath . 'codeception.yml', $buildPath . 'codeception.dist.yml');
-        foreach($searchFiles as $searchFile){
-            if(file_exists($searchFile)){
-                $file = $searchFile;
-            }
-        }
-
-        if($file === ''){
-            throw new Exception("Codeception config file could not be found!");
-        }
-
-        return $file;
-    }
-
-    /**
      * CodeceptionPlugin constructor.
      * @param Builder $builder
      * @param Build $build
@@ -105,6 +83,7 @@ class CodeceptionPlugin implements \PHPCI\Plugin
         $cmd .= $commandBuilder->buildCommand();
 
         $this->builder->log($cmd);
+        $this->builder->executeCommand($cmd, $this->builder->buildPath);
 
         return true;
     }
