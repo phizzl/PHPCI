@@ -382,6 +382,8 @@ generiert. Um es zu verwenden, fügen Sie einfach den folgenden Public Key im Ab
     'missing_phpci_yml' => 'Dieses Projekt beinhaltet keine phpci.yml-Datei, oder sie ist leer.',
     'build_success' => 'BUILD ERFOLGREICH',
     'build_failed' => 'BUILD FEHLGESCHLAGEN',
+    'build_tested_success' => 'BUILD TEST ERFOLGREICH',
+    'build_tested_failure' => 'BUILD TEST FEHLGESCHLAGEN',
     'removing_build' => 'Entferne Build.',
     'exception' => 'Exception: ',
     'could_not_create_working' => 'Konnte keine Arbeitskopie erstellen.',
