@@ -205,6 +205,16 @@ class Builder implements LoggerAwareInterface
                 $success &= $this->pluginExecutor->executePlugins($this->config, $stage);
             }
 
+            // Run post test events
+            if($success){
+                $this->buildLogger->log(Lang::get('build_tested_success'));
+                $success = $this->pluginExecutor->executePlugins($this->config, 'tested_success');
+            }
+            else{
+                $this->buildLogger->log(Lang::get('build_tested_failure'));
+                $this->pluginExecutor->executePlugins($this->config, 'tested_failure');
+            }
+
             // Set the status so this can be used by complete, success and failure
             // stages.
             if ($success) {

@@ -173,7 +173,7 @@ class Build extends BuildBase
                 continue;
             }
 
-            foreach (array('setup', 'test', 'complete', 'success', 'failure') as $stage) {
+            foreach (array('setup', 'test', 'complete', 'success', 'failure', 'tested_success', 'tested_failure') as $stage) {
                 if ($className::canExecute($stage, $builder, $this)) {
                     $config[$stage][$className] = array(
                         'zero_config' => true
