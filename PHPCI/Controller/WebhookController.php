@@ -425,7 +425,7 @@ class WebhookController extends \b8\Controller
         $commitMessage,
         array $extra = null
     ) {
-        if(!$this->isBranchObserved($branch, $project)){
+        if( !$this->isBranchObserved($branch, $project) ) {
             return array(
                 'status' => 'ignored',
                 'message' => "Branch \"{$branch}\" is not observed"
@@ -457,13 +457,15 @@ class WebhookController extends \b8\Controller
      */
     protected function isBranchObserved($branch, Project $project)
     {
-        if(($observedBranchesStr = trim($project->getObservedBranches())) === ''){
+        if( ($observedBranchesStr = trim($project->getObservedBranches())) === '' ) {
             return true;
         }
 
+        $replaces = array("\r" => '', "\n" => '');
         $observedBranches = explode(PHP_EOL, $observedBranchesStr);
-        foreach($observedBranches as $observedBranch){
-            if($this->stringContains($branch, $observedBranch)){
+        foreach( $observedBranches as $observedBranch ){
+            $observedBranch = str_replace(array_keys($replaces), $replaces, $observedBranch);
+            if( $this->stringContains($branch, $observedBranch) ) {
                 return true;
             }
         }
@@ -480,11 +482,11 @@ class WebhookController extends \b8\Controller
      */
     protected function stringContains($str1, $str2)
     {
-        if($str1 === $str2){
+        if( $str1 === $str2 ) {
             return true;
         }
 
-        if(($pos = strrpos($str2, '*')) !== false){
+        if( ($pos = strrpos($str2, '*')) !== false ) {
             return substr($str1, 0, $pos) === substr($str2, 0, $pos);
         }
 
